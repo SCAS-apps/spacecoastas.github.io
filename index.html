@@ -48,23 +48,17 @@
         }
 
         .logo-icon {
-            width: 70px;
-            height: 70px;
-            background: url('logo.png') center/contain no-repeat;
+            width: 80px;
+            height: 80px;
+            background: url('logo.png') center/cover no-repeat;
             background-color: #2c5aa0;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
             box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+            flex-shrink: 0;
         }
 
         .logo-icon:empty::before {
-            content: "SCAS";
-            font-size: 16px;
-            font-weight: bold;
+            content: "";
         }
 
         .logo h1 {
