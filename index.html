@@ -69,30 +69,9 @@
             margin: 0;
         }
 
-        .desktop-nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
+        /* Hide desktop navigation completely */
         .desktop-nav {
-            display: block;
-        }
-
-        .desktop-nav a {
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 10px 15px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .desktop-nav a:hover,
-        .desktop-nav a.active {
-            background: linear-gradient(45deg, #2c5aa0, #1a365d);
-            color: white;
-            transform: translateY(-2px);
+            display: none;
         }
 
         main {
@@ -220,15 +199,21 @@
             transition: all 0.3s ease;
         }
 
-        /* Mobile Menu Styles */
+        /* Universal Menu Styles */
         .hamburger-menu {
-            display: none;
+            display: block;
             background: none;
             border: none;
             font-size: 1.5rem;
             color: #1a365d;
             cursor: pointer;
             padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu:hover {
+            color: #2c5aa0;
+            transform: scale(1.1);
         }
 
         .menu-overlay {
@@ -282,6 +267,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             border-radius: 0;
+            font-size: 1.1rem;
         }
 
         #mobileNav a:hover,
@@ -291,15 +277,8 @@
             transform: none;
         }
 
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .hamburger-menu {
-                display: block;
-            }
-
-            .desktop-nav {
-                display: none;
-            }
-
             .hero h2 {
                 font-size: 2rem;
             }
@@ -319,11 +298,9 @@
             .info-grid {
                 grid-template-columns: 1fr;
             }
-        }
 
-        @media (min-width: 769px) {
-            .desktop-nav {
-                display: block;
+            #mobileNav {
+                width: 250px;
             }
         }
     </style>
