@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo.png">
     <title>Space Coast Aquarium Society - SCAS</title>
     <style>
         * {
@@ -51,14 +52,9 @@
             width: 80px;
             height: 80px;
             background: url('logo.png') center/cover no-repeat;
-            background-color: #2c5aa0;
             border-radius: 50%;
             box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
             flex-shrink: 0;
-        }
-
-        .logo-icon:empty::before {
-            content: "";
         }
 
         .logo h1 {
@@ -280,7 +276,13 @@
         <!-- Home Page -->
         <div id="home" class="page active">
             <div class="hero">
-                <h2>Space Coast Aquarium Society</h2>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <div style="width: 150px; height: 150px; background: url('logo.png') center/cover no-repeat; border-radius: 50%; box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3); flex-shrink: 0;"></div>
+                    <div style="text-align: left;">
+                        <h2 style="margin: 0 0 10px 0;">Space Coast Aquarium Society</h2>
+                        <p style="margin: 0; font-size: 1.1rem; color: #666;">Educating • Sharing • Growing Together</p>
+                    </div>
+                </div>
                 <p>Welcome to SCAS! Join our community of aquarium enthusiasts on Florida's Space Coast.</p>
                 <a href="https://checkout.square.site/merchant/ML79YXDC6RS0M/checkout/HUY2VRCEM6D3UFLLMNDJK4H7" target="_blank" class="cta-button">Join Our Club Today</a>
             </div>
