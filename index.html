@@ -588,9 +588,6 @@
                             <img id="frame1" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #e3f2fd, #bbdefb); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">🐠</div>
                         </div>
-                        <div style="text-align: center; margin-top: 10px;">
-                            <p style="margin: 0; color: #666; font-size: 0.9rem; font-style: italic;">Member Showcase</p>
-                        </div>
                     </div>
 
                     <!-- Frame 2 -->
@@ -598,9 +595,6 @@
                         <div style="height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
                             <img id="frame2" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #f3e5f5, #e1bee7); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">🐟</div>
-                        </div>
-                        <div style="text-align: center; margin-top: 10px;">
-                            <p style="margin: 0; color: #666; font-size: 0.9rem; font-style: italic;">Community Fish</p>
                         </div>
                     </div>
 
@@ -610,9 +604,6 @@
                             <img id="frame3" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #e8f5e8, #c8e6c9); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">🌱</div>
                         </div>
-                        <div style="text-align: center; margin-top: 10px;">
-                            <p style="margin: 0; color: #666; font-size: 0.9rem; font-style: italic;">Aquascapes</p>
-                        </div>
                     </div>
 
                     <!-- Frame 4 -->
@@ -620,9 +611,6 @@
                         <div style="height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
                             <img id="frame4" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #fff3e0, #ffcc80); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">📸</div>
-                        </div>
-                        <div style="text-align: center; margin-top: 10px;">
-                            <p style="margin: 0; color: #666; font-size: 0.9rem; font-style: italic;">Latest Submissions</p>
                         </div>
                     </div>
                     
@@ -843,40 +831,26 @@
     </main>
 
     <script>
-        // Photo frame rotation system - automatically loads any photos in gallery folder
-        function loadGalleryPhotos() {
-            const galleryPhotos = [];
-            const commonExtensions = ['jpg', 'jpeg', 'png', 'webp'];
-            
-            // Generate possible photo names (up to 100 photos)
-            for (let i = 1; i <= 100; i++) {
-                commonExtensions.forEach(ext => {
-                    // Try different naming patterns including your specific format
-                    galleryPhotos.push(`gallery/IMG_(${i}).${ext}`);
-                    galleryPhotos.push(`gallery/IMG_${String(i).padStart(4, '0')}.${ext}`);
-                    galleryPhotos.push(`gallery/DSC_${String(i).padStart(4, '0')}.${ext}`);
-                    galleryPhotos.push(`gallery/photo${i}.${ext}`);
-                    galleryPhotos.push(`gallery/image${i}.${ext}`);
-                    galleryPhotos.push(`gallery/fish${i}.${ext}`);
-                    galleryPhotos.push(`gallery/${i}.${ext}`);
-                    galleryPhotos.push(`gallery/IMG_${i}.${ext}`);
-                    galleryPhotos.push(`gallery/DSC${i}.${ext}`);
-                });
-            }
-            
-            return galleryPhotos;
+        // Photo frame rotation system - unlimited photos with your naming convention
+        const galleryPhotos = [];
+        let availablePhotos = [];
+        let frameIndices = [0, 1, 2, 3];
+
+        // Generate photo paths for your naming convention (up to 100)
+        for (let i = 1; i <= 100; i++) {
+            galleryPhotos.push(`gallery/IMG_(${i}).jpg`);
         }
 
-        const galleryPhotos = loadGalleryPhotos();
-        let frameIndices = [0, 25, 50, 75]; // Starting positions for each frame
-        let availablePhotos = []; // Will hold actually available photos
-
-        // Test which photos actually exist
+        // Test which photos actually exist and load them
         function findAvailablePhotos() {
-            const promises = galleryPhotos.map(photoPath => {
+            let loadedCount = 0;
+            const promises = galleryPhotos.map((photoPath, index) => {
                 return new Promise(resolve => {
                     const img = new Image();
-                    img.onload = () => resolve(photoPath);
+                    img.onload = () => {
+                        loadedCount++;
+                        resolve(photoPath);
+                    };
                     img.onerror = () => resolve(null);
                     img.src = photoPath;
                 });
@@ -886,9 +860,10 @@
                 availablePhotos = results.filter(path => path !== null);
                 console.log(`Found ${availablePhotos.length} photos in gallery`);
                 
-                // Initialize frames with available photos
                 if (availablePhotos.length > 0) {
                     initializeFrames();
+                } else {
+                    console.log('No photos found - check gallery folder and file names');
                 }
             });
         }
@@ -899,9 +874,10 @@
             frames.forEach((frameId, index) => {
                 const img = document.getElementById(frameId);
                 if (img && availablePhotos.length > 0) {
-                    const photoIndex = (index * Math.floor(availablePhotos.length / 4)) % availablePhotos.length;
+                    const photoIndex = index % availablePhotos.length;
                     img.src = availablePhotos[photoIndex];
                     frameIndices[index] = photoIndex;
+                    img.style.opacity = '1';
                 }
             });
         }
@@ -918,7 +894,7 @@
                     img.style.opacity = '0';
                     
                     setTimeout(() => {
-                        // Change image to next available photo
+                        // Move to next photo
                         frameIndices[index] = (frameIndices[index] + 1) % availablePhotos.length;
                         img.src = availablePhotos[frameIndices[index]];
                         
