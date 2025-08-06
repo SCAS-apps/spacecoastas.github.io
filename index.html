@@ -831,44 +831,51 @@
     </main>
 
     <script>
-        // Photo frame rotation system - unlimited photos with your naming convention
-        const galleryPhotos = [];
-        let availablePhotos = [];
+        // Photo frame rotation system - fixed with correct spacing
+        const availablePhotos = [
+            'gallery/IMG_ (1).jpg',
+            'gallery/IMG_ (2).jpg',
+            'gallery/IMG_ (3).jpg',
+            'gallery/IMG_ (4).jpg',
+            'gallery/IMG_ (5).jpg'
+        ];
+        
         let frameIndices = [0, 1, 2, 3];
 
-        // Generate photo paths for your naming convention (up to 100)
-        for (let i = 1; i <= 100; i++) {
-            galleryPhotos.push(`gallery/IMG_(${i}).jpg`);
-        }
+        console.log('Using correct photo names with spaces:', availablePhotos);
+        console.log('Testing first photo access...');
 
-        // Test which photos actually exist and load them
-        function findAvailablePhotos() {
-            let loadedCount = 0;
-            const promises = galleryPhotos.map((photoPath, index) => {
-                return new Promise(resolve => {
-                    const img = new Image();
-                    img.onload = () => {
-                        loadedCount++;
-                        resolve(photoPath);
-                    };
-                    img.onerror = () => resolve(null);
-                    img.src = photoPath;
-                });
-            });
+        // Test the first photo directly
+        const testImg = new Image();
+        testImg.onload = () => {
+            console.log('✅ SUCCESS: First photo loaded successfully!');
+            initializeFrames();
+        };
+        testImg.onerror = () => {
+            console.log('❌ FAILED: Cannot access photos with spaces. Checking URL encoding...');
+            // Try URL encoded version (space = %20)
+            availablePhotos[0] = 'gallery/IMG_%20(1).jpg';
+            availablePhotos[1] = 'gallery/IMG_%20(2).jpg';
+            availablePhotos[2] = 'gallery/IMG_%20(3).jpg';
+            availablePhotos[3] = 'gallery/IMG_%20(4).jpg';
+            availablePhotos[4] = 'gallery/IMG_%20(5).jpg';
+            console.log('Trying URL encoded paths:', availablePhotos);
             
-            Promise.all(promises).then(results => {
-                availablePhotos = results.filter(path => path !== null);
-                console.log(`Found ${availablePhotos.length} photos in gallery`);
-                
-                if (availablePhotos.length > 0) {
-                    initializeFrames();
-                } else {
-                    console.log('No photos found - check gallery folder and file names');
-                }
-            });
-        }
+            const testImg2 = new Image();
+            testImg2.onload = () => {
+                console.log('✅ SUCCESS: Found photos with URL encoding!');
+                initializeFrames();
+            };
+            testImg2.onerror = () => {
+                console.log('❌ FAILED: Photos not accessible');
+                console.log('Manual test: Try visiting https://scas-apps.github.io/spacecoastas.github.io/gallery/IMG_%20(1).jpg');
+            };
+            testImg2.src = 'gallery/IMG_%20(1).jpg';
+        };
+        testImg.src = 'gallery/IMG_ (1).jpg';
 
         function initializeFrames() {
+            console.log('Initializing frames with photos:', availablePhotos);
             const frames = ['frame1', 'frame2', 'frame3', 'frame4'];
             
             frames.forEach((frameId, index) => {
@@ -878,6 +885,12 @@
                     img.src = availablePhotos[photoIndex];
                     frameIndices[index] = photoIndex;
                     img.style.opacity = '1';
+                    console.log(`✅ Frame ${index + 1} set to: ${availablePhotos[photoIndex]}`);
+                    
+                    // Add error handling for each frame
+                    img.onerror = () => {
+                        console.log(`❌ Frame ${index + 1} failed to load: ${availablePhotos[photoIndex]}`);
+                    };
                 }
             });
         }
@@ -890,23 +903,22 @@
             frames.forEach((frameId, index) => {
                 const img = document.getElementById(frameId);
                 if (img) {
-                    // Fade out
                     img.style.opacity = '0';
                     
                     setTimeout(() => {
-                        // Move to next photo
                         frameIndices[index] = (frameIndices[index] + 1) % availablePhotos.length;
                         img.src = availablePhotos[frameIndices[index]];
-                        
-                        // Fade in
                         img.style.opacity = '1';
+                        console.log(`🔄 Frame ${index + 1} rotated to: ${availablePhotos[frameIndices[index]]}`);
                     }, 250);
                 }
             });
         }
 
-        // Start photo detection when page loads
-        setTimeout(findAvailablePhotos, 1000);
+        // Start immediately when page loads
+        setTimeout(() => {
+            console.log('Starting photo system...');
+        }, 1000);
 
         // Rotate photos every 8 seconds
         setInterval(rotatePhotos, 8000);
