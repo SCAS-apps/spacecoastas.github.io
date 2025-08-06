@@ -52,21 +52,31 @@
         .logo-icon {
             width: 80px;
             height: 80px;
-            background: url('logo.png') center/cover no-repeat, linear-gradient(45deg, #2c5aa0, #1a365d);
+            background: url('logo.png') center/cover no-repeat;
             border-radius: 50%;
             box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
             flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+        }
+
+        /* Placeholder text - only shows when no logo image */
+        .logo-icon::after {
+            content: 'SCAS';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: white;
             font-size: 1.5rem;
             font-weight: bold;
-        }
-
-        .logo-icon::before {
-            content: 'SCAS';
-            display: block;
+            background: linear-gradient(45deg, #2c5aa0, #1a365d);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: -1;
         }
 
         .logo h1 {
