@@ -52,10 +52,21 @@
         .logo-icon {
             width: 80px;
             height: 80px;
-            background: url('logo.png') center/cover no-repeat;
+            background: url('logo.png') center/cover no-repeat, linear-gradient(45deg, #2c5aa0, #1a365d);
             border-radius: 50%;
             box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-icon::before {
+            content: 'SCAS';
+            display: block;
         }
 
         .logo h1 {
@@ -432,7 +443,7 @@
             transform: none;
         }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments for scattered photos */
         @media (max-width: 768px) {
             .hero h2 {
                 font-size: 2rem;
@@ -465,8 +476,25 @@
                 margin: 0 auto;
             }
 
-            .fish-showcase {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            /* Adjust scattered photos for mobile */
+            .photo-frame {
+                position: relative !important;
+                transform: none !important;
+                margin: 20px auto !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+            }
+
+            /* Stack photos vertically on mobile */
+            #home .photo-frame:nth-child(1) { order: 1; }
+            #home .photo-frame:nth-child(2) { order: 2; }
+            #home .photo-frame:nth-child(3) { order: 3; }
+            #home .photo-frame:nth-child(4) { order: 4; }
+
+            /* Mobile header adjustments */
+            .header-content {
+                justify-content: space-between;
             }
 
             #mobileNav {
@@ -498,7 +526,7 @@
             <li><a href="#" data-page="our-story" class="nav-link">Our Story</a></li>
             <li><a href="#" data-page="bylaws" class="nav-link">Bylaws</a></li>
             <li><a href="#" data-page="auction-rules" class="nav-link">Auction Rules</a></li>
-            <li><a href="#" data-page="member-gallery" class="nav-link">Member Gallery</a></li>
+            <li><a href="#" data-page="member-photos" class="nav-link">Member Photos</a></li>
             <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
         </ul>
     </nav>
@@ -576,47 +604,68 @@
                 </div>
             </div>
 
-            <!-- Member Photo Frames -->
-            <div style="margin: 40px 0; padding: 30px; background: linear-gradient(135deg, rgba(240, 248, 255, 0.3) 0%, rgba(230, 243, 255, 0.3) 100%); border-radius: 15px;">
-                <h3 style="text-align: center; color: #1a365d; margin-bottom: 30px;">Member Photo Gallery</h3>
+            <!-- Social Media & Community Section -->
+            <div style="margin: 50px 0; padding: 40px; background: linear-gradient(135deg, rgba(24, 119, 242, 0.1) 0%, rgba(24, 119, 242, 0.05) 100%); border-radius: 15px; text-align: center; border: 2px solid rgba(24, 119, 242, 0.2);">
+                <h3 style="color: #1a365d; margin-bottom: 20px; font-size: 1.8rem;">Connect With Our Community</h3>
+                <p style="color: #666; margin-bottom: 30px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">Join our active Facebook group where members share photos, ask questions, trade fish, and connect with fellow aquarists!</p>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 30px;">
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <!-- Facebook Group - Primary -->
+                    <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(45deg, #1877f2, #0d65d9); color: white; padding: 15px 25px; border-radius: 30px; text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(24,119,242,0.3);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 35px rgba(24,119,242,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(24,119,242,0.3)'">
+                        <span style="font-size: 1.3rem;">📘</span>
+                        <span>Join Facebook Group</span>
+                    </a>
                     
-                    <!-- Frame 1 -->
-                    <div class="photo-frame" style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; position: relative;">
-                        <div style="height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
-                            <img id="frame1" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #e3f2fd, #bbdefb); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">🐠</div>
-                        </div>
-                    </div>
-
-                    <!-- Frame 2 -->
-                    <div class="photo-frame" style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; position: relative;">
-                        <div style="height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
-                            <img id="frame2" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #f3e5f5, #e1bee7); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">🐟</div>
-                        </div>
-                    </div>
-
-                    <!-- Frame 3 -->
-                    <div class="photo-frame" style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; position: relative;">
-                        <div style="height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
-                            <img id="frame3" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #e8f5e8, #c8e6c9); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">🌱</div>
-                        </div>
-                    </div>
-
-                    <!-- Frame 4 -->
-                    <div class="photo-frame" style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; position: relative;">
-                        <div style="height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
-                            <img id="frame4" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #fff3e0, #ffcc80); display: none; align-items: center; justify-content: center; color: #666; font-size: 3rem;">📸</div>
-                        </div>
-                    </div>
-                    
+                    <!-- Instagram - Secondary -->
+                    <a href="#" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(45deg, #e4405f, #c13584); color: white; padding: 15px 25px; border-radius: 30px; text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(228,64,95,0.3);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 35px rgba(228,64,95,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(228,64,95,0.3)'">
+                        <span style="font-size: 1.3rem;">📸</span>
+                        <span>Follow on Instagram</span>
+                    </a>
                 </div>
                 
-                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.5); border-radius: 10px;">
+                <div style="margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.7); border-radius: 10px; border-left: 4px solid #1877f2;">
+                    <p style="color: #1a365d; font-weight: 600; margin-bottom: 8px;">🌟 Facebook Group Highlights:</p>
+                    <p style="color: #666; font-size: 0.95rem;">• Daily fish photos & tank showcases • Buy/sell/trade marketplace • Expert advice & troubleshooting • Event announcements & updates</p>
+                </div>
+            </div>
+
+            <!-- Scattered Photo Frames - hanging on the wall -->
+            <div style="position: relative; height: 800px; margin: 40px 0;">
+                <h3 style="text-align: center; color: #1a365d; margin-bottom: 50px; position: relative; z-index: 10;">Member Photo Gallery</h3>
+                
+                <!-- Frame 1 - Top Left -->
+                <div class="photo-frame" style="position: absolute; top: 80px; left: 5%; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; transform: rotate(-3deg); z-index: 5;">
+                    <div style="width: 220px; height: 160px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
+                        <img id="frame1" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #e3f2fd, #bbdefb); display: none; align-items: center; justify-content: center; color: #666; font-size: 2rem;">🐠</div>
+                    </div>
+                </div>
+
+                <!-- Frame 2 - Top Right -->
+                <div class="photo-frame" style="position: absolute; top: 50px; right: 8%; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; transform: rotate(2deg); z-index: 4;">
+                    <div style="width: 200px; height: 180px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
+                        <img id="frame2" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #f3e5f5, #e1bee7); display: none; align-items: center; justify-content: center; color: #666; font-size: 2rem;">🐟</div>
+                    </div>
+                </div>
+
+                <!-- Frame 3 - Middle Left -->
+                <div class="photo-frame" style="position: absolute; top: 280px; left: 15%; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; transform: rotate(1deg); z-index: 6;">
+                    <div style="width: 240px; height: 170px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
+                        <img id="frame3" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #e8f5e8, #c8e6c9); display: none; align-items: center; justify-content: center; color: #666; font-size: 2rem;">🌱</div>
+                    </div>
+                </div>
+
+                <!-- Frame 4 - Bottom Right -->
+                <div class="photo-frame" style="position: absolute; top: 320px; right: 12%; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; transform: rotate(-2deg); z-index: 3;">
+                    <div style="width: 210px; height: 190px; border-radius: 8px; overflow: hidden; background: #f0f0f0; position: relative;">
+                        <img id="frame4" src="gallery/photo1.jpg" style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #fff3e0, #ffcc80); display: none; align-items: center; justify-content: center; color: #666; font-size: 2rem;">📸</div>
+                    </div>
+                </div>
+                
+                <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center; background: rgba(255,255,255,0.9); padding: 15px 25px; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10;">
                     <p style="color: #666; margin: 0; font-size: 0.95rem;">📷 Photos automatically cycle from our member gallery</p>
                 </div>
             </div>
@@ -816,9 +865,10 @@
                 </div>
 
                 <div class="info-card">
-                    <h3>🌐 Online</h3>
+                    <h3>🌐 Online Community</h3>
                     <p><strong>Website:</strong> www.spacecoastas.org<br>
-                    <strong>Facebook:</strong> <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="color: #2c5aa0; text-decoration: none;">Space Coast Aquarium Society</a></p>
+                    <strong>Facebook Group:</strong> <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="color: #1877f2; text-decoration: none; font-weight: 600;">North Brevard Aquarium Keepers</a><br>
+                    <strong>Instagram:</strong> <a href="#" target="_blank" style="color: #e4405f; text-decoration: none; font-weight: 600;">@spacecoastaquarium</a></p>
                 </div>
 
                 <div class="info-card">
