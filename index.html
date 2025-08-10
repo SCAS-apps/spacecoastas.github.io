@@ -92,50 +92,6 @@
                 eventFields.style.display = 'block';
             }
         }
-
-        function submitSuggestion() {
-            const form = document.querySelector('#suggestionForm form');
-            const formData = new FormData(form);
-            
-            // Build email body
-            let emailBody = "Hi! I have a suggestion for SCAS:\n\n";
-            
-            const suggestionType = formData.get('suggestionType');
-            emailBody += `Type: ${suggestionType === 'speaker' ? 'Speaker Suggestion' : 'Event Suggestion'}\n\n`;
-            
-            if (suggestionType === 'speaker') {
-                emailBody += `Speaker Name: ${formData.get('speakerName') || 'Not provided'}\n`;
-                emailBody += `Email: ${formData.get('speakerEmail') || 'Not provided'}\n`;
-                emailBody += `Phone: ${formData.get('speakerPhone') || 'Not provided'}\n`;
-                emailBody += `Website: ${formData.get('speakerWebsite') || 'Not provided'}\n`;
-                emailBody += `Topic: ${formData.get('speakerTopic') || 'Not provided'}\n`;
-                emailBody += `Seen them speak before: ${formData.get('seenSpeaker') || 'Not answered'}\n`;
-                emailBody += `Connection/Coordination: ${formData.get('speakerConnection') || 'Not answered'}\n\n`;
-            } else {
-                emailBody += `Event Name: ${formData.get('eventName') || 'Not provided'}\n`;
-                emailBody += `Contact Email: ${formData.get('eventEmail') || 'Not provided'}\n`;
-                emailBody += `Contact Phone: ${formData.get('eventPhone') || 'Not provided'}\n`;
-                emailBody += `Website: ${formData.get('eventWebsite') || 'Not provided'}\n`;
-                emailBody += `Details: ${formData.get('eventDetails') || 'Not provided'}\n`;
-                emailBody += `Attended before: ${formData.get('attendedEvent') || 'Not answered'}\n`;
-                emailBody += `Connection/Coordination: ${formData.get('eventConnection') || 'Not answered'}\n\n`;
-            }
-            
-            emailBody += `Submitter Name: ${formData.get('submitterName')}\n`;
-            emailBody += `Submitter Email: ${formData.get('submitterEmail')}\n`;
-            emailBody += `Submitter Phone: ${formData.get('submitterPhone') || 'Not provided'}\n\n`;
-            emailBody += "Thanks!";
-            
-            // Create mailto link
-            const subject = suggestionType === 'speaker' ? 'Speaker Suggestion' : 'Event Suggestion';
-            const mailtoLink = `mailto:socials@spacecoastas.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Hide form
-            hideSuggestionForm();
-        }
     </script>
     <style>
         * {
