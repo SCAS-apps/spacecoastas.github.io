@@ -356,20 +356,20 @@
                         <p>Space Coast Aquarium Society</p>
                     </div>
                 </div>
-                <button class="hamburger-menu" id="menuToggle">☰</button>
+                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
             </div>
         </div>
     </header>
 
-    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-overlay" onclick="closeMenu()"></div>
     <nav id="mobileNav">
         <ul>
-            <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
-            <li><a href="#" data-page="our-story" class="nav-link">Our Story</a></li>
-            <li><a href="#" data-page="bylaws" class="nav-link">Bylaws</a></li>
-            <li><a href="#" data-page="auction-rules" class="nav-link">Auction Rules</a></li>
-            <li><a href="#" data-page="member-photos" class="nav-link">Member Photos</a></li>
-            <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+            <li><a href="#" onclick="showPage('home')" data-page="home" class="nav-link active">Home</a></li>
+            <li><a href="#" onclick="showPage('our-story')" data-page="our-story" class="nav-link">Our Story</a></li>
+            <li><a href="#" onclick="showPage('bylaws')" data-page="bylaws" class="nav-link">Bylaws</a></li>
+            <li><a href="#" onclick="showPage('auction-rules')" data-page="auction-rules" class="nav-link">Auction Rules</a></li>
+            <li><a href="#" onclick="showPage('member-photos')" data-page="member-photos" class="nav-link">Member Photos</a></li>
+            <li><a href="#" onclick="showPage('contact')" data-page="contact" class="nav-link">Contact</a></li>
         </ul>
     </nav>
 
