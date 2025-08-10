@@ -50,16 +50,10 @@
         .logo-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(45deg, #2c5aa0, #1a365d);
+            background: url('logo.png') center/cover no-repeat;
             border-radius: 50%;
             box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
             flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
         }
 
         .logo h1 {
@@ -322,74 +316,6 @@
             border-left: 4px solid #1877f2;
         }
 
-        .photo-gallery {
-            position: relative;
-            height: 600px;
-            margin: 40px 0;
-        }
-
-        .photo-frame {
-            position: absolute;
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-        }
-
-        .photo-frame:nth-child(2) {
-            top: 80px;
-            left: 5%;
-            transform: rotate(-3deg);
-        }
-
-        .photo-frame:nth-child(3) {
-            top: 50px;
-            right: 8%;
-            transform: rotate(2deg);
-        }
-
-        .photo-frame:nth-child(4) {
-            top: 280px;
-            left: 15%;
-            transform: rotate(1deg);
-        }
-
-        .photo-frame:nth-child(5) {
-            top: 320px;
-            right: 12%;
-            transform: rotate(-2deg);
-        }
-
-        .photo-frame:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .photo-placeholder {
-            width: 220px;
-            height: 160px;
-            border-radius: 8px;
-            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 2rem;
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            background: rgba(255,255,255,0.9);
-            padding: 15px 25px;
-            border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
         @media (max-width: 768px) {
             .hero h2 {
                 font-size: 2rem;
@@ -415,22 +341,6 @@
                 flex-direction: column;
                 align-items: center;
             }
-
-            .photo-gallery {
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .photo-frame {
-                position: relative !important;
-                transform: none !important;
-                margin: 0 auto;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-            }
         }
     </style>
 </head>
@@ -439,7 +349,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo-icon">SCAS</div>
+                    <div class="logo-icon"></div>
                     <div>
                         <h1>SCAS</h1>
                         <p>Space Coast Aquarium Society</p>
@@ -467,8 +377,8 @@
         <div id="home" class="page active">
             <div class="hero">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
-                    <div style="width: 120px; height: 120px; background: linear-gradient(45deg, #2c5aa0, #1a365d); border-radius: 50%; box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">🐠</div>
-                    <div style="text-align: left;">
+                    <div style="width: 120px; height: 120px; background: url('logo.png') center/cover no-repeat; border-radius: 50%; box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3); flex-shrink: 0;"></div>
+                    <div style="text-align: center;">
                         <h2 style="margin: 0 0 10px 0;">Space Coast Aquarium Society</h2>
                         <p style="margin: 0; font-size: 1.1rem; color: #666;">Educating • Sharing • Growing Together</p>
                     </div>
@@ -532,7 +442,7 @@
                         <span>Join Facebook Group</span>
                     </a>
                     
-                    <a href="#" target="_blank" class="social-button instagram-button">
+                    <a href="https://www.instagram.com/spacecoastas/" target="_blank" class="social-button instagram-button">
                         <span style="font-size: 1.3rem;">📸</span>
                         <span>Follow on Instagram</span>
                     </a>
@@ -541,30 +451,6 @@
                 <div class="social-highlights">
                     <p style="color: #1a365d; font-weight: 600; margin-bottom: 8px;">🌟 Facebook Group Highlights:</p>
                     <p style="color: #666; font-size: 0.95rem;">• Daily fish photos & tank showcases • Buy/sell/trade marketplace • Expert advice & troubleshooting • Event announcements & updates</p>
-                </div>
-            </div>
-
-            <div class="photo-gallery">
-                <h3 style="text-align: center; color: #1a365d; margin-bottom: 50px;">Member Photo Gallery</h3>
-                
-                <div class="photo-frame">
-                    <div class="photo-placeholder">🐠</div>
-                </div>
-                
-                <div class="photo-frame">
-                    <div class="photo-placeholder">🐟</div>
-                </div>
-
-                <div class="photo-frame">
-                    <div class="photo-placeholder">🌱</div>
-                </div>
-
-                <div class="photo-frame">
-                    <div class="photo-placeholder">📸</div>
-                </div>
-                
-                <div class="gallery-caption">
-                    <p style="color: #666; margin: 0; font-size: 0.95rem;">📷 Photos from our member gallery</p>
                 </div>
             </div>
         </div>
@@ -679,4 +565,34 @@
                         </ul>
                     </div>
                     <div>
-                        <
+                        <h4 style="color: #2c5aa0; margin-bottom: 10px;">📋 Requirements</h4>
+                        <ul style="margin-left: 20px; color: #666;">
+                            <li>Must be your own photos</li>
+                            <li>Include species names if known</li>
+                            <li>Brief description encouraged</li>
+                            <li>Photos subject to approval</li>
+                            <li>SCAS members only</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #1a365d; margin-bottom: 30px; text-align: center;">Featured Member Photos</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; border: 2px dashed #2c5aa0; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 280px;">
+                    <div style="font-size: 3rem; color: #2c5aa0; margin-bottom: 15px;">📸</div>
+                    <h4 style="color: #1a365d; margin-bottom: 10px;">Your Photo Here!</h4>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Share your amazing aquarium photos with the community</p>
+                    <a href="mailto:photos@spacecoastas.org?subject=SCAS Photo Submission" style="color: #2c5aa0; text-decoration: none; font-weight: 600;">Submit Now →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <h2>Contact Us</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                
