@@ -816,7 +816,7 @@
 
                 <!-- Suggestion Form -->
                 <div id="suggestionForm" style="display: none; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
-                    <form>
+                    <form data-netlify="true" name="speaker-event-suggestions" method="POST">
                         <!-- Suggestion Type -->
                         <div style="margin-bottom: 25px;">
                             <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">What type of suggestion is this?</label>
@@ -970,7 +970,7 @@
 
                         <!-- Submit Button -->
                         <div style="text-align: center; margin-top: 30px;">
-                            <button type="button" onclick="submitSuggestion()" style="background: linear-gradient(45deg, #2c5aa0, #1a365d); color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(44,90,160,0.3);">
+                            <button type="submit" style="background: linear-gradient(45deg, #2c5aa0, #1a365d); color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(44,90,160,0.3);">
                                 Submit Suggestion
                             </button>
                             <button type="button" onclick="hideSuggestionForm()" style="background: #6c757d; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-left: 15px; transition: all 0.3s ease;">
