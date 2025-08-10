@@ -32,6 +32,109 @@
             
             // Close menu
             closeMenu();
+            
+            // Start photo rotation if member photos page
+            if (pageId === 'member-photos') {
+                startPhotoRotation();
+            }
+        }
+
+        function startPhotoRotation() {
+            const availablePhotos = [
+                'gallery/IMG_ (1).jpg',
+                'gallery/IMG_ (2).jpg',
+                'gallery/IMG_ (3).jpg',
+                'gallery/IMG_ (4).jpg',
+                'gallery/IMG_ (5).jpg'
+            ];
+            
+            let frameIndices = [0, 1, 2, 3];
+
+            function rotatePhotos() {
+                const frames = ['frame1', 'frame2', 'frame3', 'frame4'];
+                
+                frames.forEach((frameId, index) => {
+                    const img = document.getElementById(frameId);
+                    if (img) {
+                        img.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            frameIndices[index] = (frameIndices[index] + 1) % availablePhotos.length;
+                            img.src = availablePhotos[frameIndices[index]];
+                            img.style.opacity = '1';
+                        }, 250);
+                    }
+                });
+            }
+
+            // Rotate every 8 seconds
+            setInterval(rotatePhotos, 8000);
+        }
+
+        function showSuggestionForm() {
+            document.getElementById('suggestionForm').style.display = 'block';
+        }
+
+        function hideSuggestionForm() {
+            document.getElementById('suggestionForm').style.display = 'none';
+        }
+
+        function toggleFormSections() {
+            const selectedType = document.querySelector('input[name="suggestionType"]:checked').value;
+            const speakerFields = document.getElementById('speakerFields');
+            const eventFields = document.getElementById('eventFields');
+            
+            if (selectedType === 'speaker') {
+                speakerFields.style.display = 'block';
+                eventFields.style.display = 'none';
+            } else {
+                speakerFields.style.display = 'none';
+                eventFields.style.display = 'block';
+            }
+        }
+
+        function submitSuggestion() {
+            const form = document.querySelector('#suggestionForm form');
+            const formData = new FormData(form);
+            
+            // Build email body
+            let emailBody = "Hi! I have a suggestion for SCAS:\n\n";
+            
+            const suggestionType = formData.get('suggestionType');
+            emailBody += `Type: ${suggestionType === 'speaker' ? 'Speaker Suggestion' : 'Event Suggestion'}\n\n`;
+            
+            if (suggestionType === 'speaker') {
+                emailBody += `Speaker Name: ${formData.get('speakerName') || 'Not provided'}\n`;
+                emailBody += `Email: ${formData.get('speakerEmail') || 'Not provided'}\n`;
+                emailBody += `Phone: ${formData.get('speakerPhone') || 'Not provided'}\n`;
+                emailBody += `Website: ${formData.get('speakerWebsite') || 'Not provided'}\n`;
+                emailBody += `Topic: ${formData.get('speakerTopic') || 'Not provided'}\n`;
+                emailBody += `Seen them speak before: ${formData.get('seenSpeaker') || 'Not answered'}\n`;
+                emailBody += `Connection/Coordination: ${formData.get('speakerConnection') || 'Not answered'}\n\n`;
+            } else {
+                emailBody += `Event Name: ${formData.get('eventName') || 'Not provided'}\n`;
+                emailBody += `Contact Email: ${formData.get('eventEmail') || 'Not provided'}\n`;
+                emailBody += `Contact Phone: ${formData.get('eventPhone') || 'Not provided'}\n`;
+                emailBody += `Website: ${formData.get('eventWebsite') || 'Not provided'}\n`;
+                emailBody += `Details: ${formData.get('eventDetails') || 'Not provided'}\n`;
+                emailBody += `Attended before: ${formData.get('attendedEvent') || 'Not answered'}\n`;
+                emailBody += `Connection/Coordination: ${formData.get('eventConnection') || 'Not answered'}\n\n`;
+            }
+            
+            emailBody += `Submitter Name: ${formData.get('submitterName')}\n`;
+            emailBody += `Submitter Email: ${formData.get('submitterEmail')}\n`;
+            emailBody += `Submitter Phone: ${formData.get('submitterPhone') || 'Not provided'}\n\n`;
+            emailBody += "Thanks!";
+            
+            // Create mailto link
+            const subject = suggestionType === 'speaker' ? 'Speaker Suggestion' : 'Event Suggestion';
+            const mailtoLink = `mailto:socials@spacecoastas.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Hide form
+            hideSuggestionForm();
         }
     </script>
     <style>
@@ -164,8 +267,71 @@
             display: none;
         }
 
-        .overlay.active {
-            display: block;
+        /* Member Photos Page */
+        .photo-gallery {
+            position: relative;
+            height: 600px;
+            margin: 40px 0;
+        }
+
+        .photo-frame {
+            position: absolute;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .photo-frame:nth-child(1) {
+            top: 80px;
+            left: 5%;
+            transform: rotate(-3deg);
+            width: 220px;
+            height: 190px;
+        }
+
+        .photo-frame:nth-child(2) {
+            top: 50px;
+            right: 8%;
+            transform: rotate(2deg);
+            width: 200px;
+            height: 210px;
+        }
+
+        .photo-frame:nth-child(3) {
+            top: 280px;
+            left: 15%;
+            transform: rotate(1deg);
+            width: 240px;
+            height: 200px;
+        }
+
+        .photo-frame:nth-child(4) {
+            top: 320px;
+            right: 12%;
+            transform: rotate(-2deg);
+            width: 210px;
+            height: 220px;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 2rem;
         }
 
         main {
@@ -570,62 +736,26 @@
         <div id="member-photos" class="page">
             <h2>Member Gallery</h2>
             
-            <div style="text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, rgba(240, 248, 255, 0.8) 0%, rgba(230, 243, 255, 0.8) 100%); border-radius: 15px; border: 2px solid #2c5aa0;">
-                <h3 style="color: #1a365d; margin-bottom: 15px;">Share Your Aquarium Photos!</h3>
-                <p style="margin-bottom: 20px; color: #666;">Show off your beautiful fish, tanks, and aquascapes with the SCAS community.</p>
-                <a href="mailto:photos@spacecoastas.org?subject=SCAS Photo Submission&body=Hi! I'd like to submit a photo for the member gallery." class="cta-button">Submit Your Photos</a>
-            </div>
-
-            <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin-bottom: 40px;">
-                <h3 style="color: #1a365d; margin-bottom: 15px;">📝 Submission Guidelines</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                    <div>
-                        <h4 style="color: #2c5aa0; margin-bottom: 10px;">✅ What We Love</h4>
-                        <ul style="margin-left: 20px; color: #666;">
-                            <li>High-quality fish portraits</li>
-                            <li>Beautiful aquascapes</li>
-                            <li>Tank setups and equipment</li>
-                            <li>Breeding successes</li>
-                            <li>Before/after transformations</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 style="color: #2c5aa0; margin-bottom: 10px;">📋 Requirements</h4>
-                        <ul style="margin-left: 20px; color: #666;">
-                            <li>Must be your own photos</li>
-                            <li>Include species names if known</li>
-                            <li>Brief description encouraged</li>
-                            <li>Photos subject to approval</li>
-                            <li>SCAS members only</li>
-                        </ul>
-                    </div>
+            <div class="photo-gallery">
+                <div class="photo-frame">
+                    <img id="frame1" src="gallery/IMG_ (1).jpg" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="photo-placeholder" style="display: none;">🐠</div>
                 </div>
-            </div>
+                
+                <div class="photo-frame">
+                    <img id="frame2" src="gallery/IMG_ (2).jpg" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="photo-placeholder" style="display: none;">🐟</div>
+                </div>
 
-            <h3 style="color: #1a365d; margin-bottom: 30px; text-align: center;">Featured Member Photos</h3>
-            
-            <div id="photo-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-                <!-- Photos will be loaded here dynamically -->
-            </div>
+                <div class="photo-frame">
+                    <img id="frame3" src="gallery/IMG_ (3).jpg" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="photo-placeholder" style="display: none;">🌱</div>
+                </div>
 
-            <!-- Loading indicator -->
-            <div id="loading-photos" style="text-align: center; padding: 40px; color: #666;">
-                <div style="font-size: 2rem; margin-bottom: 15px;">📸</div>
-                <p>Loading member photos...</p>
-            </div>
-
-            <!-- No photos message -->
-            <div id="no-photos" style="display: none; text-align: center; padding: 40px; background: #f8f9fa; border-radius: 15px; margin-top: 20px;">
-                <div style="font-size: 3rem; color: #2c5aa0; margin-bottom: 15px;">📷</div>
-                <h4 style="color: #1a365d; margin-bottom: 10px;">Be the First to Share!</h4>
-                <p style="color: #666; margin-bottom: 20px;">No member photos yet. Submit yours to get the gallery started!</p>
-                <a href="mailto:photos@spacecoastas.org?subject=SCAS Photo Submission" class="cta-button">Submit First Photo</a>
-            </div>
-
-            <div style="text-align: center; margin-top: 50px; padding: 25px; background: #f8f9fa; border-radius: 15px; border-left: 5px solid #2c5aa0;">
-                <h4 style="color: #1a365d; margin-bottom: 15px;">🌟 Photo of the Month</h4>
-                <p style="color: #666; margin-bottom: 20px;">Outstanding member photos are featured on our social media and at monthly meetings!</p>
-                <p style="color: #2c5aa0; font-weight: 600;">Next featured photo could be yours!</p>
+                <div class="photo-frame">
+                    <img id="frame4" src="gallery/IMG_ (4).jpg" alt="Member photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="photo-placeholder" style="display: none;">📸</div>
+                </div>
             </div>
         </div>
 
@@ -662,13 +792,179 @@
                 </div>
             </div>
 
-            <!-- Meeting Ideas Submission -->
+            <!-- Speaker/Event Suggestion Form -->
             <div style="margin: 50px 0; padding: 40px; background: linear-gradient(135deg, rgba(44, 90, 160, 0.1) 0%, rgba(26, 54, 93, 0.05) 100%); border-radius: 15px; border: 2px solid rgba(44, 90, 160, 0.2);">
                 <h3 style="color: #1a365d; margin-bottom: 20px; text-align: center; font-size: 1.8rem;">💡 Submit Speaker or Event Idea</h3>
                 <p style="color: #666; text-align: center; margin-bottom: 30px;">Have an idea for a speaker or club event? We'd love to hear from you!</p>
                 
-                <div style="text-align: center;">
-                    <a href="mailto:socials@spacecoastas.org?subject=Speaker or Event Suggestion&body=Hi! I have a suggestion for SCAS:%0A%0AType (Speaker/Event):%0AName/Description:%0AContact Info (if applicable):%0A%0AThanks!" class="cta-button">Submit Your Idea</a>
+                <button onclick="showSuggestionForm()" style="display: block; margin: 0 auto 30px; background: linear-gradient(45deg, #2c5aa0, #1a365d); color: white; padding: 15px 30px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(44,90,160,0.3);">
+                    Submit Speaker or Event Idea
+                </button>
+
+                <!-- Suggestion Form -->
+                <div id="suggestionForm" style="display: none; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    <form>
+                        <!-- Suggestion Type -->
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">What type of suggestion is this?</label>
+                            <label style="display: block; margin-bottom: 8px;">
+                                <input type="radio" name="suggestionType" value="speaker" onchange="toggleFormSections()" style="margin-right: 8px;" required>
+                                Speaker Suggestion
+                            </label>
+                            <label style="display: block;">
+                                <input type="radio" name="suggestionType" value="event" onchange="toggleFormSections()" style="margin-right: 8px;" required>
+                                Event Suggestion
+                            </label>
+                        </div>
+
+                        <!-- Speaker Form -->
+                        <div id="speakerFields" style="display: none;">
+                            <h4 style="color: #1a365d; margin-bottom: 20px; border-bottom: 2px solid #2c5aa0; padding-bottom: 10px;">Speaker Information</h4>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Speaker Name *</label>
+                                <input type="text" name="speakerName" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Email</label>
+                                    <input type="email" name="speakerEmail" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                                </div>
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Phone</label>
+                                    <input type="tel" name="speakerPhone" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Website</label>
+                                <input type="url" name="speakerWebsite" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Topic/Expertise</label>
+                                <textarea name="speakerTopic" rows="3" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">Have you seen them speak before?</label>
+                                <label style="display: block; margin-bottom: 8px;">
+                                    <input type="radio" name="seenSpeaker" value="yes" style="margin-right: 8px;">
+                                    Yes
+                                </label>
+                                <label style="display: block; margin-bottom: 8px;">
+                                    <input type="radio" name="seenSpeaker" value="no" style="margin-right: 8px;">
+                                    No
+                                </label>
+                                <label style="display: block;">
+                                    <input type="radio" name="seenSpeaker" value="online" style="margin-right: 8px;">
+                                    Online only
+                                </label>
+                            </div>
+
+                            <div style="margin-bottom: 25px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">Do you have a connection to this speaker and are you willing to help coordinate or should the club coordinate directly?</label>
+                                <label style="display: block; margin-bottom: 8px;">
+                                    <input type="radio" name="speakerConnection" value="coordinate" style="margin-right: 8px;">
+                                    Yes, I can help coordinate
+                                </label>
+                                <label style="display: block;">
+                                    <input type="radio" name="speakerConnection" value="club" style="margin-right: 8px;">
+                                    No, club should coordinate directly
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Event Form -->
+                        <div id="eventFields" style="display: none;">
+                            <h4 style="color: #1a365d; margin-bottom: 20px; border-bottom: 2px solid #2c5aa0; padding-bottom: 10px;">Event Information</h4>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Event Name/Type *</label>
+                                <input type="text" name="eventName" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Contact Email</label>
+                                    <input type="email" name="eventEmail" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                                </div>
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Contact Phone</label>
+                                    <input type="tel" name="eventPhone" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Website</label>
+                                <input type="url" name="eventWebsite" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Event Details/Description</label>
+                                <textarea name="eventDetails" rows="3" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">Have you attended this event before?</label>
+                                <label style="display: block; margin-bottom: 8px;">
+                                    <input type="radio" name="attendedEvent" value="yes" style="margin-right: 8px;">
+                                    Yes
+                                </label>
+                                <label style="display: block; margin-bottom: 8px;">
+                                    <input type="radio" name="attendedEvent" value="no" style="margin-right: 8px;">
+                                    No
+                                </label>
+                                <label style="display: block;">
+                                    <input type="radio" name="attendedEvent" value="similar" style="margin-right: 8px;">
+                                    Similar events
+                                </label>
+                            </div>
+
+                            <div style="margin-bottom: 25px;">
+                                <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">Do you have a connection to this event organizer and are you willing to help coordinate or should the club coordinate directly?</label>
+                                <label style="display: block; margin-bottom: 8px;">
+                                    <input type="radio" name="eventConnection" value="coordinate" style="margin-right: 8px;">
+                                    Yes, I can help coordinate
+                                </label>
+                                <label style="display: block;">
+                                    <input type="radio" name="eventConnection" value="club" style="margin-right: 8px;">
+                                    No, club should coordinate directly
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Contact Info Section -->
+                        <div style="border-top: 2px solid #dee2e6; padding-top: 25px; margin-top: 25px;">
+                            <h4 style="color: #1a365d; margin-bottom: 20px;">Your Contact Information</h4>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Your Name *</label>
+                                    <input type="text" name="submitterName" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Your Email *</label>
+                                    <input type="email" name="submitterEmail" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 5px;">Your Phone</label>
+                                    <input type="tel" name="submitterPhone" style="width: 100%; padding: 10px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button type="button" onclick="submitSuggestion()" style="background: linear-gradient(45deg, #2c5aa0, #1a365d); color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(44,90,160,0.3);">
+                                Submit Suggestion
+                            </button>
+                            <button type="button" onclick="hideSuggestionForm()" style="background: #6c757d; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-left: 15px; transition: all 0.3s ease;">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
