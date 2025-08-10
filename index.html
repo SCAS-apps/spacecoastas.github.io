@@ -322,16 +322,29 @@
             border-radius: 8px;
         }
 
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 2rem;
+        /* Our Story page background pleco */
+        #our-story {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #our-story::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -200px;
+            width: 800px;
+            height: 1000px;
+            background: url('pleco-background.png') center/contain no-repeat;
+            opacity: 0.08;
+            z-index: 1;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        #our-story > * {
+            position: relative;
+            z-index: 2;
         }
 
         main {
