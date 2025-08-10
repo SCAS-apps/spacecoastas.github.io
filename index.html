@@ -579,13 +579,28 @@
 
             <h3 style="color: #1a365d; margin-bottom: 30px; text-align: center;">Featured Member Photos</h3>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; border: 2px dashed #2c5aa0; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 280px;">
-                    <div style="font-size: 3rem; color: #2c5aa0; margin-bottom: 15px;">📸</div>
-                    <h4 style="color: #1a365d; margin-bottom: 10px;">Your Photo Here!</h4>
-                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Share your amazing aquarium photos with the community</p>
-                    <a href="mailto:photos@spacecoastas.org?subject=SCAS Photo Submission" style="color: #2c5aa0; text-decoration: none; font-weight: 600;">Submit Now →</a>
-                </div>
+            <div id="photo-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                <!-- Photos will be loaded here dynamically -->
+            </div>
+
+            <!-- Loading indicator -->
+            <div id="loading-photos" style="text-align: center; padding: 40px; color: #666;">
+                <div style="font-size: 2rem; margin-bottom: 15px;">📸</div>
+                <p>Loading member photos...</p>
+            </div>
+
+            <!-- No photos message -->
+            <div id="no-photos" style="display: none; text-align: center; padding: 40px; background: #f8f9fa; border-radius: 15px; margin-top: 20px;">
+                <div style="font-size: 3rem; color: #2c5aa0; margin-bottom: 15px;">📷</div>
+                <h4 style="color: #1a365d; margin-bottom: 10px;">Be the First to Share!</h4>
+                <p style="color: #666; margin-bottom: 20px;">No member photos yet. Submit yours to get the gallery started!</p>
+                <a href="mailto:photos@spacecoastas.org?subject=SCAS Photo Submission" class="cta-button">Submit First Photo</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px; padding: 25px; background: #f8f9fa; border-radius: 15px; border-left: 5px solid #2c5aa0;">
+                <h4 style="color: #1a365d; margin-bottom: 15px;">🌟 Photo of the Month</h4>
+                <p style="color: #666; margin-bottom: 20px;">Outstanding member photos are featured on our social media and at monthly meetings!</p>
+                <p style="color: #2c5aa0; font-weight: 600;">Next featured photo could be yours!</p>
             </div>
         </div>
 
@@ -595,4 +610,42 @@
             
             <div class="info-grid">
                 <div class="info-card">
+                    <h3>📧 Get in Touch</h3>
+                    <p><strong>Email:</strong> socials@spacecoastas.org</p>
+                    <p>We typically respond within 24 hours</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>📍 Meeting Location</h3>
+                    <p><strong>Scottsmoor Community Association</strong><br>
+                    Meeting Hall<br>
+                    Every 4th Saturday<br>
+                    Doors: 12:00 PM, Program: 1:00 PM</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🌐 Online Community</h3>
+                    <p><strong>Website:</strong> www.spacecoastas.org<br>
+                    <strong>Facebook Group:</strong> <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="color: #1877f2; text-decoration: none; font-weight: 600;">North Brevard Aquarium Keepers</a><br>
+                    <strong>Instagram:</strong> <a href="https://www.instagram.com/spacecoastas/" target="_blank" style="color: #e4405f; text-decoration: none; font-weight: 600;">@spacecoastas</a></p>
+                </div>
+
+                <div class="info-card">
+                    <h3>💳 Join Today</h3>
+                    <p>Ready to become a member? Join online with instant membership activation.</p>
+                    <a href="https://checkout.square.site/merchant/ML79YXDC6RS0M/checkout/HUY2VRCEM6D3UFLLMNDJK4H7" target="_blank" class="cta-button" style="margin-top: 15px;">Join SCAS Now</a>
+                </div>
+            </div>
+
+            <!-- Meeting Ideas Submission -->
+            <div style="margin: 50px 0; padding: 40px; background: linear-gradient(135deg, rgba(44, 90, 160, 0.1) 0%, rgba(26, 54, 93, 0.05) 100%); border-radius: 15px; border: 2px solid rgba(44, 90, 160, 0.2);">
+                <h3 style="color: #1a365d; margin-bottom: 20px; text-align: center; font-size: 1.8rem;">💡 Submit Speaker or Event Idea</h3>
+                <p style="color: #666; text-align: center; margin-bottom: 30px;">Have an idea for a speaker or club event? We'd love to hear from you!</p>
+                
+                <div style="text-align: center;">
+                    <a href="mailto:socials@spacecoastas.org?subject=Speaker or Event Suggestion&body=Hi! I have a suggestion for SCAS:%0A%0AType (Speaker/Event):%0AName/Description:%0AContact Info (if applicable):%0A%0AThanks!" class="cta-button">Submit Your Idea</a>
+                </div>
+            </div>
+        </div>
+    </main>
                 
