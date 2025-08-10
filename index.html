@@ -4,6 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Coast Aquarium Society - SCAS</title>
+    <script>
+        function openMenu() {
+            document.querySelector('.nav-menu').classList.add('active');
+            document.querySelector('.overlay').classList.add('active');
+        }
+
+        function closeMenu() {
+            document.querySelector('.nav-menu').classList.remove('active');
+            document.querySelector('.overlay').classList.remove('active');
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Close menu
+            closeMenu();
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -69,79 +99,73 @@
             margin: 0;
         }
 
-        .hamburger-menu {
-            display: block;
-            background: none;
+        .menu-btn {
+            background: #2c5aa0;
+            color: white;
             border: none;
-            font-size: 1.5rem;
-            color: #1a365d;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            padding: 10px;
-            transition: all 0.3s ease;
+            font-size: 18px;
         }
 
-        .hamburger-menu:hover {
-            color: #2c5aa0;
-            transform: scale(1.1);
-        }
-
-        .menu-overlay {
-            display: none;
+        .nav-menu {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-        }
-
-        .menu-overlay.show {
-            display: block !important;
-        }
-
-        #mobileNav {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
+            right: -100%;
+            width: 300px;
             height: 100vh;
             background: white;
-            z-index: 300;
+            z-index: 200;
             transition: right 0.3s ease;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            padding-top: 60px;
-            overflow-y: auto;
+            padding-top: 80px;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
         }
 
-        #mobileNav.show {
-            right: 0 !important;
+        .nav-menu.active {
+            right: 0;
         }
 
-        #mobileNav ul {
+        .nav-menu ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        #mobileNav li {
-            border-bottom: 1px solid #f0f0f0;
+        .nav-menu li {
+            border-bottom: 1px solid #eee;
         }
 
-        #mobileNav a {
+        .nav-menu a {
             display: block;
+            padding: 20px 30px;
             color: #333;
             text-decoration: none;
-            padding: 20px 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
+            font-size: 16px;
         }
 
-        #mobileNav a:hover,
-        #mobileNav a.active {
-            background: linear-gradient(45deg, #2c5aa0, #1a365d);
+        .nav-menu a:hover {
+            background: #f5f5f5;
+        }
+
+        .nav-menu a.active {
+            background: #2c5aa0;
             color: white;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 150;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
         }
 
         main {
@@ -356,20 +380,20 @@
                         <p>Space Coast Aquarium Society</p>
                     </div>
                 </div>
-                <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+                <button class="menu-btn" onclick="openMenu()">☰ Menu</button>
             </div>
         </div>
     </header>
 
-    <div class="menu-overlay" onclick="closeMenu()"></div>
-    <nav id="mobileNav">
+    <div class="overlay" onclick="closeMenu()"></div>
+    <nav class="nav-menu">
         <ul>
-            <li><a href="#" onclick="showPage('home')" data-page="home" class="nav-link active">Home</a></li>
-            <li><a href="#" onclick="showPage('our-story')" data-page="our-story" class="nav-link">Our Story</a></li>
-            <li><a href="#" onclick="showPage('bylaws')" data-page="bylaws" class="nav-link">Bylaws</a></li>
-            <li><a href="#" onclick="showPage('auction-rules')" data-page="auction-rules" class="nav-link">Auction Rules</a></li>
-            <li><a href="#" onclick="showPage('member-photos')" data-page="member-photos" class="nav-link">Member Photos</a></li>
-            <li><a href="#" onclick="showPage('contact')" data-page="contact" class="nav-link">Contact</a></li>
+            <li><a href="#" onclick="showPage('home')" class="nav-link active">Home</a></li>
+            <li><a href="#" onclick="showPage('our-story')" class="nav-link">Our Story</a></li>
+            <li><a href="#" onclick="showPage('bylaws')" class="nav-link">Bylaws</a></li>
+            <li><a href="#" onclick="showPage('auction-rules')" class="nav-link">Auction Rules</a></li>
+            <li><a href="#" onclick="showPage('member-photos')" class="nav-link">Member Photos</a></li>
+            <li><a href="#" onclick="showPage('contact')" class="nav-link">Contact</a></li>
         </ul>
     </nav>
 
