@@ -64,6 +64,21 @@
 
             setInterval(rotatePhotos, 8000);
         }
+
+        function toggleFormSections() {
+            const speakerRadio = document.querySelector('input[name="suggestionType"][value="speaker"]');
+            const eventRadio = document.querySelector('input[name="suggestionType"][value="event"]');
+            const speakerFields = document.getElementById('speakerFields');
+            const eventFields = document.getElementById('eventFields');
+            
+            if (speakerRadio && speakerRadio.checked) {
+                speakerFields.style.display = 'block';
+                eventFields.style.display = 'none';
+            } else if (eventRadio && eventRadio.checked) {
+                speakerFields.style.display = 'none';
+                eventFields.style.display = 'block';
+            }
+        }
     </script>
     <style>
         * {
