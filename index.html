@@ -72,11 +72,12 @@
         }
 
         function showSuggestionForm() {
-            document.getElementById('suggestionForm').style.display = 'block';
+            // Form is now always visible - this function is no longer needed
+            // But keeping it for the button onclick
         }
 
         function hideSuggestionForm() {
-            document.getElementById('suggestionForm').style.display = 'none';
+            // Form is now always visible - this function is no longer needed
         }
 
         function toggleFormSections() {
@@ -226,49 +227,50 @@
         /* Member Photos Page */
         .photo-gallery {
             position: relative;
-            height: 800px;
+            height: 1100px;
             margin: 40px 0;
         }
 
         .photo-frame {
             position: absolute;
-            background: white;
-            padding: 20px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%);
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 12px 35px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
+            border: 2px solid rgba(44, 90, 160, 0.08);
         }
 
         .photo-frame:nth-child(1) {
-            top: 60px;
-            left: 5%;
+            top: 40px;
+            left: 6%;
             transform: rotate(-3deg);
-            width: 320px;
-            height: 280px;
+            width: 480px;
+            height: 420px;
         }
 
         .photo-frame:nth-child(2) {
-            top: 30px;
-            right: 8%;
+            top: 40px;
+            right: 6%;
             transform: rotate(2deg);
-            width: 300px;
-            height: 320px;
+            width: 450px;
+            height: 480px;
         }
 
         .photo-frame:nth-child(3) {
-            top: 400px;
-            left: 12%;
+            top: 520px;
+            left: 6%;
             transform: rotate(1deg);
-            width: 350px;
-            height: 290px;
+            width: 525px;
+            height: 435px;
         }
 
         .photo-frame:nth-child(4) {
-            top: 420px;
-            right: 10%;
+            top: 520px;
+            right: 6%;
             transform: rotate(-2deg);
-            width: 310px;
-            height: 330px;
+            width: 465px;
+            height: 495px;
         }
 
         .photo-frame img {
@@ -392,7 +394,7 @@
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin: 40px 0;
         }
@@ -750,7 +752,7 @@
                 <div class="info-card">
                     <h3>🌐 Online Community</h3>
                     <p><strong>Website:</strong> www.spacecoastas.org<br>
-                    <strong>Facebook Group:</strong> <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="color: #1877f2; text-decoration: none; font-weight: 600;">North Brevard Aquarium Keepers</a><br>
+                    <strong>Facebook Group:</strong> <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="color: #1877f2; text-decoration: none; font-weight: 600;">Space Coast Aquarium Society</a><br>
                     <strong>Instagram:</strong> <a href="https://www.instagram.com/spacecoastas/" target="_blank" style="color: #e4405f; text-decoration: none; font-weight: 600;">@spacecoastas</a></p>
                 </div>
 
@@ -765,14 +767,14 @@
             <div style="margin: 50px 0; padding: 40px; background: linear-gradient(135deg, rgba(44, 90, 160, 0.1) 0%, rgba(26, 54, 93, 0.05) 100%); border-radius: 15px; border: 2px solid rgba(44, 90, 160, 0.2);">
                 <h3 style="color: #1a365d; margin-bottom: 20px; text-align: center; font-size: 1.8rem;">💡 Submit Speaker or Event Idea</h3>
                 <p style="color: #666; text-align: center; margin-bottom: 30px;">Have an idea for a speaker or club event? We'd love to hear from you!</p>
-                
-                <button onclick="showSuggestionForm()" style="display: block; margin: 0 auto 30px; background: linear-gradient(45deg, #2c5aa0, #1a365d); color: white; padding: 15px 30px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(44,90,160,0.3);">
-                    Submit Speaker or Event Idea
-                </button>
 
                 <!-- Suggestion Form -->
-                <div id="suggestionForm" style="display: none; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
-                    <form data-netlify="true" name="speaker-event-suggestions" method="POST">
+                <div id="suggestionForm" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    <form data-netlify="true" name="speaker-event-suggestions" method="POST" netlify-honeypot="bot-field">
+                        <!-- Hidden bot field for spam protection -->
+                        <div style="display: none;">
+                            <label>Don't fill this out: <input name="bot-field" /></label>
+                        </div>
                         <!-- Suggestion Type -->
                         <div style="margin-bottom: 25px;">
                             <label style="display: block; font-weight: 600; color: #1a365d; margin-bottom: 10px;">What type of suggestion is this?</label>
