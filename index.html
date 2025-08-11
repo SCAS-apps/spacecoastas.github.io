@@ -35,34 +35,74 @@
         }
 
         function startPhotoRotation() {
-            const availablePhotos = [
-                'gallery/IMG_ (1).jpg',
-                'gallery/IMG_ (2).jpg',
-                'gallery/IMG_ (3).jpg',
-                'gallery/IMG_ (4).jpg',
-                'gallery/IMG_ (5).jpg'
-            ];
+            // Dynamically discover all available photos
+            const availablePhotos = [];
+            let photoIndex = 1;
+            let consecutiveFailures = 0;
             
-            let frameIndices = [0, 1, 2, 3];
-
-            function rotatePhotos() {
-                const frames = ['frame1', 'frame2', 'frame3', 'frame4'];
-                
-                frames.forEach((frameId, index) => {
-                    const img = document.getElementById(frameId);
-                    if (img) {
-                        img.style.opacity = '0';
-                        
-                        setTimeout(() => {
-                            frameIndices[index] = (frameIndices[index] + 1) % availablePhotos.length;
-                            img.src = availablePhotos[frameIndices[index]];
-                            img.style.opacity = '1';
-                        }, 250);
-                    }
+            // Test each photo to see if it exists
+            function testPhoto(index) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    const photoPath = `gallery/IMG_ (${index}).jpg`;
+                    
+                    img.onload = function() {
+                        availablePhotos.push(photoPath);
+                        resolve(true);
+                    };
+                    
+                    img.onerror = function() {
+                        resolve(false);
+                    };
+                    
+                    img.src = photoPath;
                 });
             }
+            
+            // Discover all photos sequentially
+            async function discoverPhotos() {
+                while (consecutiveFailures < 5) { // Stop after 5 consecutive missing photos
+                    const exists = await testPhoto(photoIndex);
+                    if (exists) {
+                        consecutiveFailures = 0;
+                    } else {
+                        consecutiveFailures++;
+                    }
+                    photoIndex++;
+                }
+                
+                console.log(`Found ${availablePhotos.length} photos in gallery`);
+                
+                if (availablePhotos.length > 0) {
+                    startRotation();
+                }
+            }
+            
+            function startRotation() {
+                let frameIndices = [0, 1, 2, 3];
 
-            setInterval(rotatePhotos, 8000);
+                function rotatePhotos() {
+                    const frames = ['frame1', 'frame2', 'frame3', 'frame4'];
+                    
+                    frames.forEach((frameId, index) => {
+                        const img = document.getElementById(frameId);
+                        if (img && availablePhotos.length > 0) {
+                            img.style.opacity = '0';
+                            
+                            setTimeout(() => {
+                                frameIndices[index] = (frameIndices[index] + 1) % availablePhotos.length;
+                                img.src = availablePhotos[frameIndices[index]];
+                                img.style.opacity = '1';
+                            }, 250);
+                        }
+                    });
+                }
+
+                setInterval(rotatePhotos, 8000);
+            }
+            
+            // Start the discovery process
+            discoverPhotos();
         }
 
         function toggleFormSections() {
