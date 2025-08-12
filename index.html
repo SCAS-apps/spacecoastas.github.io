@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Coast Aquarium Society - SCAS</title>
     <script>
+        // Load next event on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNextEvent();
+        });
+        
         function openMenu() {
             document.querySelector('.nav-menu').classList.add('active');
             document.querySelector('.overlay').classList.add('active');
@@ -31,6 +36,11 @@
             
             if (pageId === 'member-photos') {
                 startPhotoRotation();
+            }
+            
+            // Load next event when home page is shown
+            if (pageId === 'home') {
+                loadNextEvent();
             }
         }
 
@@ -103,6 +113,20 @@
             
             // Start the discovery process
             discoverPhotos();
+        }
+
+        function loadNextEvent() {
+            const nextEventDiv = document.getElementById('nextEvent');
+            
+            const fallbackContent = `
+                <div style="font-size: 0.9rem; color: white;">
+                    <strong style="color: white;">Monthly Meeting</strong><br>
+                    <span style="color: rgba(255,255,255,0.9);">Every 4th Saturday</span><br>
+                    <a href="https://www.facebook.com/share/g/16et86JYxn/" target="_blank" style="color: #87CEEB; text-decoration: none; font-weight: 600;">See Facebook for details →</a>
+                </div>
+            `;
+            
+            nextEventDiv.innerHTML = fallbackContent;
         }
 
         function toggleFormSections() {
@@ -598,6 +622,16 @@
                         <strong>📍 Location</strong><br>
                         Scottsmoor Community Association<br>
                         Meeting Hall
+                        <div style="margin-top: 10px;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3497.4365825409413!2d-80.87830108824296!3d28.76623427789347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88e73580837e2dcd%3A0x44884f8cac36377!2sScottsmoor%20Community%20Association!5e0!3m2!1sen!2sus!4v1753813752924!5m2!1sen!2sus"
+                                    width="200" 
+                                    height="120" 
+                                    style="border:0; border-radius: 8px; margin-top: 8px;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
                     </div>
                     <div class="meeting-detail">
                         <strong>🕐 Schedule</strong><br>
@@ -605,9 +639,10 @@
                         Program starts: 1:00 PM
                     </div>
                     <div class="meeting-detail">
-                        <strong>🎯 Activities</strong><br>
-                        Setup & socializing<br>
-                        Presentations & auctions
+                        <strong>🎯 Next Event</strong><br>
+                        <div id="nextEvent" style="margin-top: 8px;">
+                            Loading next event...
+                        </div>
                     </div>
                 </div>
             </div>
