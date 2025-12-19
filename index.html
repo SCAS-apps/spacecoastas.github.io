@@ -22,6 +22,15 @@
         // Load next event on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadNextEvent();
+            
+            // Handle URL hash to show correct page on load
+            const hash = window.location.hash.substring(1); // Remove the # symbol
+            if (hash) {
+                const pageElement = document.getElementById(hash);
+                if (pageElement && pageElement.classList.contains('page')) {
+                    showPage(hash);
+                }
+            }
         });
         
         function openMenu() {
@@ -894,7 +903,7 @@
                             <div style="text-align: center; min-width: 180px;">
                                 <div style="font-size: 2rem; font-weight: 700; color: #1a365d; margin-bottom: 5px;">$100</div>
                                 <div style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">or $200 merchandise</div>
-                                <a href="https://square.link/u/E59PxeMR" target="_blank" class="cta-button" style="display: inline-block;">
+                                <a href="https://square.link/u/ZfJcNVSH" target="_blank" class="cta-button" style="display: inline-block;">
                                     Become Silver Molly Sponsor
                                 </a>
                             </div>
