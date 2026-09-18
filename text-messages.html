@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text message updates — Space Coast Aquarium Society</title>
+<meta name="description" content="Ask the Space Coast Aquarium Society to text you membership renewal reminders, event and swap meet updates and newsletter links. Reply STOP at any time.">
+<style>
+:root{--navy:#1a365d;--blue:#2c5aa0;--sky:#87ceeb;--ink:#333;--muted:#666;--bg:#f8fbff;--line:#e2e9f2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6}
+a{color:var(--blue)}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+header.site{background:var(--navy);color:#fff}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:600}
+.brand img{height:34px;width:auto}
+.pill{background:var(--sky);color:var(--navy);text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 14px;border-radius:999px;white-space:nowrap}
+h1{font-size:1.9rem;line-height:1.25;color:var(--navy);margin:28px 0 8px}
+h2{color:var(--navy);font-size:1.15rem;margin:0 0 10px}
+h3{color:var(--navy);font-size:1rem;margin:18px 0 6px}
+p.lede{color:var(--muted);margin:0 0 10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0;box-shadow:0 1px 3px rgba(26,54,93,.06)}
+ul{margin:8px 0;padding-left:20px}
+li{margin:4px 0}
+label{display:block;font-weight:600;font-size:.92rem;margin:14px 0 5px}
+input[type=text],input[type=email],input[type=tel]{width:100%;padding:11px 12px;border:1px solid #c9d6e5;border-radius:8px;font:inherit;color:var(--ink)}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus{outline:2px solid var(--sky);border-color:var(--blue)}
+.agree{display:flex;gap:10px;align-items:flex-start;background:#f2f7fd;border:1px solid #cfe0f2;border-radius:10px;padding:14px;margin-top:18px;font-weight:400;font-size:.92rem;line-height:1.5}
+.agree input{margin-top:3px;flex:0 0 auto;width:18px;height:18px}
+button{margin-top:18px;background:var(--blue);color:#fff;border:0;border-radius:8px;padding:12px 20px;font:inherit;font-weight:600;cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+.note{font-size:.86rem;color:var(--muted);margin-top:10px}
+.err{color:#8c1d18;background:#fdecec;border:1px solid #f3c2c7;border-radius:8px;padding:10px 12px;margin-top:14px;font-size:.9rem}
+.ok{color:#14532d;background:#e9f7ef;border:1px solid #b7e0c3;border-radius:8px;padding:10px 12px;margin-top:14px;font-size:.9rem}
+footer.site{border-top:1px solid var(--line);background:#fff;margin-top:34px;padding:22px 0 30px;font-size:.85rem;color:var(--muted)}
+footer.site nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:10px}
+.kw{display:inline-block;background:#eef4fb;border:1px solid #cfe0f2;color:var(--navy);border-radius:6px;padding:1px 7px;font-weight:600}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/logo.png" alt="" onerror="this.style.display='none'"> Space Coast Aquarium Society</a>
+    <a class="pill" href="https://scas.fish">Member sign in</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Get club updates by text message</h1>
+  <p class="lede">Members of the Space Coast Aquarium Society can ask us to text them membership renewal
+  reminders, event and swap meet updates, and a link when a new newsletter is published.</p>
+
+  <div class="card">
+    <h2>Sign up for text messages</h2>
+
+    <div id="thanks" hidden>
+      <p class="ok">Thank you — your request is recorded.</p>
+      <p>A club officer will match your request to your membership record before any message is sent.
+      You can reply STOP to any message to stop them, or email
+      <a href="mailto:socials@spacecoastas.org">socials@spacecoastas.org</a>.</p>
+    </div>
+
+    <form id="smsForm" novalidate>
+      <label for="first_name">First name</label>
+      <input type="text" id="first_name" name="first_name" autocomplete="given-name" required>
+
+      <label for="last_name">Last name</label>
+      <input type="text" id="last_name" name="last_name" autocomplete="family-name" required>
+
+      <label for="email">Email (optional)</label>
+      <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com">
+
+      <label for="mobile_phone">Mobile number</label>
+      <input type="tel" id="mobile_phone" name="mobile_phone" autocomplete="tel" placeholder="(321) 555-0123" required>
+
+      <!-- Hidden field for bots only. Leave this input alone. -->
+      <input type="text" name="hp" value="" tabindex="-1" autocomplete="off" aria-hidden="true"
+             style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+
+      <label class="agree">
+        <input type="checkbox" id="consent" name="consent">
+        <span>I agree to receive text messages from Space Coast Aquarium Society about my membership,
+        renewals, club events and newsletters at the mobile number I provided. Message frequency varies
+        (no more than about 4 messages per month). Message and data rates may apply. Reply STOP to stop
+        messages and HELP for help. Consent is not a condition of membership or of any purchase.</span>
+      </label>
+
+      <div id="formStatus" hidden></div>
+
+      <button type="submit" id="submitBtn">Sign me up for texts</button>
+      <p class="note">This only records your request. Nobody is texted until a club officer has matched the
+      number to your membership, and you can stop at any time by replying STOP.</p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>What to expect</h2>
+    <h3 style="margin-top:0">What we text</h3>
+    <ul>
+      <li>A reminder when your membership is due to renew, with the amount and how to pay.</li>
+      <li>Reminders about club events, swap meets and tables you have reserved.</li>
+      <li>A link when a new club newsletter is published.</li>
+    </ul>
+    <h3>How often, and what it costs</h3>
+    <p>Message frequency varies, with no more than about 4 messages per month. Message and data rates may
+    apply — your mobile plan's usual charges still apply.</p>
+    <h3>Checking your membership by text</h3>
+    <p>From the mobile number the club has on file, text <span class="kw">STATUS</span> for your membership
+    status, renewal date and anything owing, <span class="kw">NUMBER</span> for your member number (handy at
+    our auctions), or <span class="kw">HELP</span> for help. Replying to those keywords does not sign you up
+    for any other messages.</p>
+    <h3>Stopping or starting again</h3>
+    <p>Reply <span class="kw">STOP</span> to any message to stop them immediately — no need to explain or
+    contact anyone. Text <span class="kw">START</span> to begin again, and <span class="kw">HELP</span> if you
+    need us. Consent is never a condition of membership.</p>
+    <p class="note">See also our <a href="messaging-terms.html">messaging terms</a>,
+    <a href="privacy.html">privacy policy</a> and <a href="terms.html">terms of use</a>.</p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <nav>
+      <a href="/">Home</a>
+      <a href="https://scas.fish/join">Join the club</a>
+      <a href="text-messages.html">Text message updates</a>
+      <a href="messaging-terms.html">Messaging terms</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="terms.html">Terms of use</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p>Space Coast Aquarium Society · <a href="mailto:socials@spacecoastas.org">socials@spacecoastas.org</a></p>
+    <p>4820 Key Biscayne Dr, Titusville, FL 32780</p>
+    <p>Members: manage your membership, renewals and events at
+    <a href="https://scas.fish">scas.fish</a>.</p>
+  </div>
+</footer>
+
+<script>
+// Where the form sends the request. If the club's membership app is not at
+// scas.fish yet, change this to that app's address plus /api/public/sms/signup
+// (for example https://your-project.lovable.app/api/public/sms/signup).
+var ENDPOINT = "https://scas.fish/api/public/sms/signup";
+
+(function () {
+  var form = document.getElementById("smsForm");
+  var status = document.getElementById("formStatus");
+  var button = document.getElementById("submitBtn");
+  var thanks = document.getElementById("thanks");
+
+  function show(message, isError) {
+    status.hidden = false;
+    status.className = isError ? "err" : "ok";
+    status.textContent = message;
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var payload = {
+      first_name: form.first_name.value.trim(),
+      last_name: form.last_name.value.trim(),
+      email: form.email.value.trim(),
+      mobile_phone: form.mobile_phone.value.trim(),
+      consent: form.consent.checked,
+      hp: form.hp.value
+    };
+
+    if (!payload.first_name || !payload.last_name) {
+      show("Please enter your first and last name.", true);
+      return;
+    }
+    if (!payload.mobile_phone) {
+      show("Please enter your mobile number.", true);
+      return;
+    }
+    if (!payload.consent) {
+      show("Please tick the box to agree to receive text messages.", true);
+      return;
+    }
+
+    button.disabled = true;
+    status.hidden = true;
+
+    // text/plain keeps this a plain cross-site request, so no pre-flight check
+    // is needed and the club's own site does not have to configure anything.
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (response) {
+        return response.json().then(function (out) {
+          return { ok: response.ok && out && out.ok, error: out && out.error };
+        });
+      })
+      .then(function (result) {
+        if (result.ok) {
+          form.hidden = true;
+          thanks.hidden = false;
+          window.scrollTo(0, 0);
+        } else {
+          show(result.error || "We could not save that. Please try again.", true);
+        }
+      })
+      .catch(function () {
+        show("We could not reach the sign-up service. Please try again in a moment.", true);
+      })
+      .then(function () {
+        button.disabled = false;
+      });
+  });
+})();
+</script>
+</body>
+</html>
